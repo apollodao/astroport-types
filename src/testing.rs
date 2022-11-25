@@ -195,7 +195,7 @@ fn test_asset() {
         native_token_asset
             .compute_tax(&deps.as_ref().querier)
             .unwrap(),
-        Uint128::new(1220u128)
+        Uint128::zero()
     );
 
     assert_eq!(
@@ -204,7 +204,7 @@ fn test_asset() {
             .unwrap(),
         Coin {
             denom: "uusd".to_string(),
-            amount: Uint128::new(121903u128),
+            amount: Uint128::new(123123u128),
         }
     );
 
@@ -231,7 +231,7 @@ fn test_asset() {
             to_address: String::from("addr0000"),
             amount: vec![Coin {
                 denom: "uusd".to_string(),
-                amount: Uint128::new(121903u128),
+                amount: Uint128::new(123123u128),
             }]
         })
     );
