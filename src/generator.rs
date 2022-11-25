@@ -1,9 +1,10 @@
+use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, Uint128, Uint64};
 use cw20::Cw20ReceiveMsg;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+#[cw_serde]
 pub struct InstantiateMsg {
     pub owner: String,
     pub astro_token: String,
@@ -11,6 +12,11 @@ pub struct InstantiateMsg {
     pub start_block: Uint64,
     pub allowed_reward_proxies: Vec<String>,
     pub vesting_contract: String,
+    pub factory: String,
+    pub generator_controller: Option<String>,
+    pub voting_escrow: Option<String>,
+    pub guardian: Option<String>,
+    pub whitelist_code_id: u64,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
