@@ -29,7 +29,8 @@ pub struct PairConfig {
     pub pair_type: PairType,
     pub total_fee_bps: u16,
     pub maker_fee_bps: u16,
-    pub is_disabled: Option<bool>,
+    pub is_disabled: bool,
+    pub is_generator_disabled: bool,
 }
 
 impl PairConfig {
@@ -46,9 +47,10 @@ pub struct InstantiateMsg {
     /// Contract address to send fees to
     pub fee_address: Option<String>,
     /// Used for auto_stake from pools
-    pub generator_address: String,
+    pub generator_address: Option<String>,
     /// Controls settings for factory, pools and tokenomics contracts
     pub owner: String,
+    pub whitelist_code_id: u64,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -59,6 +61,7 @@ pub enum ExecuteMsg {
         token_code_id: Option<u64>,
         fee_address: Option<String>,
         generator_address: Option<String>,
+        whitelist_code_id: Option<u64>,
     },
     UpdatePairConfig {
         config: PairConfig,
@@ -97,6 +100,7 @@ pub enum QueryMsg {
     FeeInfo {
         pair_type: PairType,
     },
+    BlacklistedPairTypes {},
 }
 
 // We define a custom struct for each query response
@@ -106,7 +110,8 @@ pub struct ConfigResponse {
     pub pair_configs: Vec<PairConfig>,
     pub token_code_id: u64,
     pub fee_address: Option<Addr>,
-    pub generator_address: Addr,
+    pub generator_address: Option<Addr>,
+    pub whitelist_code_id: u64,
 }
 
 /// We currently take no arguments for migrations
