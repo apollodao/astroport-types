@@ -1,12 +1,13 @@
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-use cosmwasm_std::{Addr, Order, Timestamp, Uint128};
+use cosmwasm_std::{Addr, Order, Uint128};
 use cw20::Cw20ReceiveMsg;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct InstantiateMsg {
     pub token_addr: String,
+    pub owner: String,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -17,6 +18,12 @@ pub enum ExecuteMsg {
         amount: Option<Uint128>,
     },
     Receive(Cw20ReceiveMsg),
+    ProposeNewOwner {
+        owner: String,
+        expires_in: u64,
+    },
+    DropOwnershipProposal {},
+    ClaimOwnership {},
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -39,7 +46,7 @@ pub struct VestingSchedule {
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct VestingSchedulePoint {
-    pub time: Timestamp,
+    pub time: u64,
     pub amount: Uint128,
 }
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -47,22 +54,24 @@ pub struct VestingSchedulePoint {
 pub enum QueryMsg {
     Config {},
     VestingAccount {
-        address: Addr,
+        address: String,
     },
     VestingAccounts {
-        start_after: Option<Addr>,
+        start_after: Option<String>,
         limit: Option<u32>,
         order_by: Option<OrderBy>,
     },
     AvailableAmount {
-        address: Addr,
+        address: String,
     },
+    Timestamp {},
 }
 
 // We define a custom struct for each query response
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct ConfigResponse {
     pub token_addr: Addr,
+    pub owner: Addr,
 }
 
 // We define a custom struct for each query response
