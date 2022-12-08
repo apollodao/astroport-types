@@ -62,6 +62,9 @@ pub enum ExecuteMsg {
     },
     DropOwnershipProposal {},
     ClaimOwnership {},
+    SetupPools {
+        pools: Vec<(String, Uint128)>,
+    },
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
