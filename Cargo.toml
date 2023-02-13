@@ -1,12 +1,11 @@
 [package]
 name = "astroport-types"
 version = "0.1.0"
-authors = ["Astroport"]
+authors = ["Astroport", "Apollo DAO Contributors <shared@apollo.farm>"]
 edition = "2021"
 description = "Common astroport types"
 license = "MPL-2.0"
-repository = "https://github.com/astroport-fi/astroport"
-homepage = "https://astroport.fi"
+repository = "https://github.com/apollodao/astroport-types"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
