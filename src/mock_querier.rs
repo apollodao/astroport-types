@@ -60,10 +60,7 @@ pub(crate) fn balances_to_map(
             contract_balances_map.insert(addr.to_string(), **balance);
         }
 
-        balances_map.insert(
-            contract_addr.to_string(),
-            contract_balances_map,
-        );
+        balances_map.insert(contract_addr.to_string(), contract_balances_map);
     }
     balances_map
 }

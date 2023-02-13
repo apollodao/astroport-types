@@ -110,17 +110,13 @@ fn test_asset_info() {
 
     assert!(!token_info.equal(&native_token_info));
 
-    assert!(
-        !token_info.equal(&AssetInfo::Token {
-            contract_addr: Addr::unchecked("asset0001"),
-        })
-    );
+    assert!(!token_info.equal(&AssetInfo::Token {
+        contract_addr: Addr::unchecked("asset0001"),
+    }));
 
-    assert!(
-        token_info.equal(&AssetInfo::Token {
-            contract_addr: Addr::unchecked("asset0000"),
-        })
-    );
+    assert!(token_info.equal(&AssetInfo::Token {
+        contract_addr: Addr::unchecked("asset0000"),
+    }));
 
     assert!(native_token_info.is_native_token());
     assert!(!token_info.is_native_token());
