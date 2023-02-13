@@ -26,6 +26,10 @@ pub struct InstantiateMsg {
 pub enum ExecuteMsg {
     UpdateConfig {
         vesting_contract: Option<String>,
+        generator_controller: Option<String>,
+        guardian: Option<String>,
+        voting_escrow: Option<String>,
+        checkpoint_generator_limit: Option<u32>,
     },
     Add {
         lp_token: Addr,
@@ -38,17 +42,18 @@ pub enum ExecuteMsg {
     },
     MassUpdatePools {},
     UpdatePool {
-        lp_token: Addr,
+        lp_token: String,
+        has_asset_rewards: bool,
     },
     ClaimRewards {
         lp_tokens: Vec<String>,
     },
     Withdraw {
-        lp_token: Addr,
+        lp_token: String,
         amount: Uint128,
     },
     EmergencyWithdraw {
-        lp_token: Addr,
+        lp_token: String,
     },
     SetAllowedRewardProxies {
         proxies: Vec<String>,
