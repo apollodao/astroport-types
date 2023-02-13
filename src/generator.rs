@@ -38,6 +38,9 @@ pub enum ExecuteMsg {
     UpdatePool {
         lp_token: Addr,
     },
+    ClaimRewards {
+        lp_tokens: Vec<String>,
+    },
     Withdraw {
         lp_token: Addr,
         amount: Uint128,
@@ -71,11 +74,11 @@ pub enum ExecuteMsg {
 #[serde(rename_all = "snake_case")]
 pub enum QueryMsg {
     PoolLength {},
-    Deposit { lp_token: Addr, user: Addr },
-    PendingToken { lp_token: Addr, user: Addr },
+    Deposit { lp_token: String, user: String },
+    PendingToken { lp_token: String, user: String },
     Config {},
-    RewardInfo { lp_token: Addr },
-    OrphanProxyRewards { lp_token: Addr },
+    RewardInfo { lp_token: String },
+    OrphanProxyRewards { lp_token: String },
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
