@@ -1,8 +1,8 @@
 [package]
-name = "astroport"
-version = "0.2.0"
+name = "astroport-types"
+version = "0.1.0"
 authors = ["Astroport"]
-edition = "2018"
+edition = "2021"
 description = "Common astroport types"
 license = "MPL-2.0"
 repository = "https://github.com/astroport-fi/astroport"
