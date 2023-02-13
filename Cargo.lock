@@ -27,8 +27,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "astroport"
-version = "0.2.0"
+name = "astroport-types"
+version = "0.1.0"
 dependencies = [
  "apollo-cw-asset",
  "cosmwasm-schema",
