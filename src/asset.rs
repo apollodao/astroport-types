@@ -4,6 +4,7 @@ use std::fmt;
 
 use crate::factory::PairType;
 use crate::querier::{query_balance, query_token_balance, query_token_symbol};
+use apollo_cw_asset::{Asset as CwAsset, AssetInfo as CwAssetInfo};
 use cosmwasm_std::{
     to_binary, Addr, Api, BankMsg, Coin, CosmosMsg, MessageInfo, QuerierWrapper, StdError,
     StdResult, Uint128, WasmMsg,
@@ -82,6 +83,42 @@ impl Asset {
             }
         } else {
             Ok(())
+        }
+    }
+}
+
+impl From<Asset> for CwAsset {
+    fn from(asset: Asset) -> Self {
+        CwAsset {
+            info: asset.info.into(),
+            amount: asset.amount,
+        }
+    }
+}
+
+impl From<CwAsset> for Asset {
+    fn from(asset: CwAsset) -> Self {
+        Asset {
+            info: asset.info.into(),
+            amount: asset.amount,
+        }
+    }
+}
+
+impl From<&Asset> for CwAsset {
+    fn from(asset: &Asset) -> Self {
+        CwAsset {
+            info: asset.info.clone().into(),
+            amount: asset.amount,
+        }
+    }
+}
+
+impl From<&CwAsset> for Asset {
+    fn from(asset: &CwAsset) -> Self {
+        Asset {
+            info: asset.info.clone().into(),
+            amount: asset.amount,
         }
     }
 }
@@ -165,6 +202,45 @@ impl AssetInfo {
     }
 }
 
+impl From<AssetInfo> for CwAssetInfo {
+    fn from(asset_info: AssetInfo) -> Self {
+        match asset_info {
+            AssetInfo::Token { contract_addr } => Self::Cw20(contract_addr),
+            AssetInfo::NativeToken { denom } => Self::Native(denom),
+        }
+    }
+}
+
+impl From<CwAssetInfo> for AssetInfo {
+    fn from(asset_info: CwAssetInfo) -> Self {
+        match asset_info {
+            CwAssetInfo::Cw20(contract_addr) => Self::Token { contract_addr },
+            CwAssetInfo::Native(denom) => Self::NativeToken { denom },
+        }
+    }
+}
+
+impl From<&AssetInfo> for CwAssetInfo {
+    fn from(asset_info: &AssetInfo) -> Self {
+        match asset_info {
+            AssetInfo::Token { contract_addr } => Self::Cw20(contract_addr.clone()),
+            AssetInfo::NativeToken { denom } => Self::Native(denom.clone()),
+        }
+    }
+}
+
+impl From<&CwAssetInfo> for AssetInfo {
+    fn from(asset_info: &CwAssetInfo) -> Self {
+        match asset_info {
+            CwAssetInfo::Cw20(contract_addr) => Self::Token {
+                contract_addr: contract_addr.clone(),
+            },
+            CwAssetInfo::Native(denom) => Self::NativeToken {
+                denom: denom.clone(),
+            },
+        }
+    }
+}
 // We define a custom struct for each query response
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct PairInfo {
