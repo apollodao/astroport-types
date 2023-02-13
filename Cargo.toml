@@ -23,3 +23,4 @@ serde = { version = "1.0.145", default-features = false, features = ["derive"] }
 uint = "0.9.3"
 cw-storage-plus = {version = "0.16", features = ['iterator']}
 cosmwasm-schema = "1"
+apollo-cw-asset = "0.1.0"
