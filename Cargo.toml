@@ -13,7 +13,8 @@ homepage = "https://astroport.fi"
 [features]
 # for quicker tests, cargo test --lib
 # for more explicit tests, cargo test --features=backtraces
-backtraces = ["cosmwasm-std/backtraces"]
+# Commented out because it seems to be broken in cosmwasm-std
+# backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
 cw20 = { version = "1.0.1" }

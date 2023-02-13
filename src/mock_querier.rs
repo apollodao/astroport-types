@@ -10,8 +10,8 @@ use crate::asset::PairInfo;
 use crate::factory::QueryMsg as FactoryQueryMsg;
 use cw20::{BalanceResponse, Cw20QueryMsg, TokenInfoResponse};
 
-/// mock_dependencies is a drop-in replacement for cosmwasm_std::testing::mock_dependencies
-/// this uses our CustomQuerier.
+/// mock_dependencies is a drop-in replacement for
+/// cosmwasm_std::testing::mock_dependencies this uses our CustomQuerier.
 pub fn mock_dependencies(
     contract_balance: &[Coin],
 ) -> OwnedDeps<MockStorage, MockApi, WasmMockQuerier> {
@@ -61,7 +61,7 @@ pub(crate) fn balances_to_map(
         }
 
         balances_map.insert(
-            String::from(contract_addr.to_string()),
+            contract_addr.to_string(),
             contract_balances_map,
         );
     }
@@ -122,7 +122,7 @@ impl CW20QueryHandler {
     pub fn execute(&self, request: &QueryRequest<Empty>) -> QuerierResult {
         match &request {
             QueryRequest::Wasm(WasmQuery::Smart { contract_addr, msg }) => {
-                match from_binary(&msg).unwrap() {
+                match from_binary(msg).unwrap() {
                     Cw20QueryMsg::TokenInfo {} => {
                         let balances: &HashMap<String, Uint128> =
                             match self.token_querier.balances.get(contract_addr) {
@@ -143,7 +143,7 @@ impl CW20QueryHandler {
                                 name: "mAPPL".to_string(),
                                 symbol: "mAPPL".to_string(),
                                 decimals: 6,
-                                total_supply: total_supply,
+                                total_supply,
                             })
                             .into(),
                         )
@@ -185,7 +185,7 @@ impl DefaultQueryHandler {
             QueryRequest::Wasm(WasmQuery::Smart {
                 contract_addr: _,
                 msg,
-            }) => match from_binary(&msg).unwrap() {
+            }) => match from_binary(msg).unwrap() {
                 FactoryQueryMsg::Pair { asset_infos } => {
                     let key = asset_infos[0].to_string() + asset_infos[1].to_string().as_str();
                     match self.astroport_factory_querier.pairs.get(&key) {
