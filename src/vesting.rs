@@ -94,8 +94,8 @@ pub enum OrderBy {
     Desc,
 }
 
-// We suppress this clippy warning because Order in cosmwasm doesn't implement Debug and
-// PartialEq for usage in QueryMsg, we need to use our own OrderBy and
+// We suppress this clippy warning because Order in cosmwasm doesn't implement
+// Debug and PartialEq for usage in QueryMsg, we need to use our own OrderBy and
 // convert it finally to cosmwasm's Order
 #[allow(clippy::from_over_into)]
 impl Into<Order> for OrderBy {

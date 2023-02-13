@@ -4,7 +4,7 @@ version = "0.2.0"
 authors = ["Astroport"]
 edition = "2018"
 description = "Common astroport types"
-license = "Apache-2.0"
+license = "MPL-2.0"
 repository = "https://github.com/astroport-fi/astroport"
 homepage = "https://astroport.fi"
 
@@ -13,7 +13,8 @@ homepage = "https://astroport.fi"
 [features]
 # for quicker tests, cargo test --lib
 # for more explicit tests, cargo test --features=backtraces
-backtraces = ["cosmwasm-std/backtraces"]
+# Commented out because it seems to be broken in cosmwasm-std
+# backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
 cw20 = { version = "1.0.1" }
